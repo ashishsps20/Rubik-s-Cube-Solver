@@ -2,6 +2,7 @@
 // Created by saket on 02-11-2023.
 //
 #include "NibbleArray.h"
+#include <cassert>
 
 using namespace std;
 

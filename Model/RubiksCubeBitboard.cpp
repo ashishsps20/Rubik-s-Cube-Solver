@@ -103,6 +103,18 @@ public:
         return (COLOR)(bit_pos - 1);
     }
 
+    void setColor(FACE face, unsigned row, unsigned col, COLOR color) override {
+        int idx = arr[row][col];
+        if (idx == 8) return; // Cannot change centers
+
+        uint64_t &side = bitboard[(int)face];
+        // Clear the 8 bits at idx
+        side &= ~(one_8 << (8 * idx));
+        // Set the new color
+        uint64_t c = 1ULL << (int)color;
+        side |= (c << (8 * idx));
+    }
+
     bool isSolved() const override {
         for (int i = 0; i < 6; i++) {
             if (solved_side_config[i] != bitboard[i]) return false;

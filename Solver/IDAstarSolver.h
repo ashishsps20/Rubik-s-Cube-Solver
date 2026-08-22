@@ -6,6 +6,7 @@
 #include "../Model/GenericRubiksCube.h"
 //#include "../Model/PatternDatabase/PatternDatabase.h"
 #include "../PatternDatabases/CornerPatternDatabase.h"
+#include <cassert>
 
 
 #ifndef RUBIKS_IDASTARSOLVER_H
@@ -44,13 +45,21 @@ private:
 
 // returns {solved cube, bound}: if the cube was solved
 // returns {rubiksCube, next_bound}, if the cube was not solved
-    pair<T, int> IDAstar(int bound) {
+    pair<T, int> IDAstar(int bound, chrono::steady_clock::time_point start_time) {
 //        priority_queue contains pair(Node, move done to reach that)
         priority_queue<pair<Node, int>, vector<pair<Node, int>>, compareCube> pq;
         Node start = Node(rubiksCube, 0, cornerDB.getNumMoves(rubiksCube));
         pq.push(make_pair(start, 0));
         int next_bound = 100;
+        int nodes_visited = 0;
         while (!pq.empty()) {
+            nodes_visited++;
+            if (nodes_visited % 10000 == 0) {
+                auto curr_time = chrono::steady_clock::now();
+                if (chrono::duration_cast<chrono::seconds>(curr_time - start_time).count() > 5) {
+                    return make_pair(rubiksCube, -1); // -1 signifies timeout
+                }
+            }
             auto p = pq.top();
             Node node = p.first;
             pq.pop();
@@ -90,14 +99,18 @@ public:
 
     vector<GenericRubiksCube::MOVE> solve() {
         int bound = 1;
-        auto p = IDAstar(bound);
+        auto start_time = chrono::steady_clock::now();
+        auto p = IDAstar(bound, start_time);
         while (p.second != bound) {
+            if (p.second == -1) return vector<GenericRubiksCube::MOVE>(); // Timeout
+
             resetStructure();
             bound = p.second;
-            p = IDAstar(bound);
+            p = IDAstar(bound, start_time);
         }
         T solved_cube = p.first;
-        assert(solved_cube.isSolved());
+        if (!solved_cube.isSolved()) return vector<GenericRubiksCube::MOVE>(); // Failsafe
+        
         T curr_cube = solved_cube;
         while (!(curr_cube == rubiksCube)) {
             GenericRubiksCube::MOVE curr_move = move_done[curr_cube];

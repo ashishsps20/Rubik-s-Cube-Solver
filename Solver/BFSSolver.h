@@ -3,6 +3,7 @@
 //
 
 #include<bits/stdc++.h>
+#include <cassert>
 #include "../Model/GenericRubiksCube.h"
 
 #ifndef RUBIKS_BFSSOLVER_H

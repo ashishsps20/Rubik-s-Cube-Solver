@@ -54,6 +54,11 @@ public:
     virtual COLOR getColor(FACE face, unsigned row, unsigned col) const = 0;
 
     /*
+     * Sets the color of the cell at (row, col) in face.
+     */
+    virtual void setColor(FACE face, unsigned row, unsigned col, COLOR color) {}
+
+    /*
      * Returns the first letter of the given COLOR
      * Eg: For COLOR::GREEN, it returns 'G'
      */

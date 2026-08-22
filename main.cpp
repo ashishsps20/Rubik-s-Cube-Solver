@@ -10,6 +10,7 @@ using namespace std;
 #include "Solver/IDAstarSolver.h"
 #include "PatternDatabases/CornerPatternDatabase.h"
 #include "PatternDatabases/CornerDBMaker.h"
+#include "GUI/RubiksGUI.h"
 
 int main() {
     cout << "=======================================" << endl;
@@ -21,6 +22,7 @@ int main() {
     cout << "Choose an option:" << endl;
     cout << "1. View a corner pattern" << endl;
     cout << "2. Solve a Rubik's Cube" << endl;
+    cout << "3. Open Interactive 3D GUI" << endl;
 
     int option;
     cin >> option;
@@ -371,8 +373,23 @@ int main() {
         } else {
             cout << "Invalid solver choice. Please choose 1 for DFS, 2 for BFS, 3 for IDDFS, 4 for IDA* ." << endl;
         }
+    } else if (option == 3) {
+        RubiksCubeBitboard cube;
+        cube.randomShuffleCube(4); // Start with a small shuffle so the AI solves it quickly
+        
+        RubiksGUI gui(&cube);
+        
+        // Set the Auto-Solve callback
+        gui.setSolverFunc([&cube]() {
+            string fileName = "Databases/cornerDepth5V1.txt";
+            IDAstarSolver<RubiksCubeBitboard, HashBitboard> idaStarSolver(cube, fileName);
+            return idaStarSolver.solve();
+        });
+        
+        gui.init();
+        gui.run();
     } else {
-        cout << "Invalid option. Please choose 1 to view a corner pattern or 2 to solve a Rubik's Cube." << endl;
+        cout << "Invalid option. Please choose 1 to view a corner pattern, 2 to solve a Rubik's Cube, or 3 for GUI." << endl;
     }
     return 0;
 }
