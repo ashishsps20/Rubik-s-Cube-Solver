@@ -375,7 +375,7 @@ int main() {
         }
     } else if (option == 3) {
         RubiksCubeBitboard cube;
-        cube.randomShuffleCube(4); // Start with a small shuffle so the AI solves it quickly
+        // cube.randomShuffleCube(4); // Removed to start with a solved cube
         
         RubiksGUI gui(&cube);
         

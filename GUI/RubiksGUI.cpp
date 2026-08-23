@@ -293,12 +293,24 @@ void RubiksGUI::run() {
 
                 // Handle Manual Input (only in NORMAL mode)
                 if (currentState == GUIState::NORMAL) {
-                    if (IsKeyPressed(KEY_F)) { if (isPrime) { cube->fPrime(); lastMove = "F'"; } else { cube->f(); lastMove = "F"; } }
-                    if (IsKeyPressed(KEY_B)) { if (isPrime) { cube->bPrime(); lastMove = "B'"; } else { cube->b(); lastMove = "B"; } }
-                    if (IsKeyPressed(KEY_U)) { if (isPrime) { cube->uPrime(); lastMove = "U'"; } else { cube->u(); lastMove = "U"; } }
-                    if (IsKeyPressed(KEY_D)) { if (isPrime) { cube->dPrime(); lastMove = "D'"; } else { cube->d(); lastMove = "D"; } }
-                    if (IsKeyPressed(KEY_L)) { if (isPrime) { cube->lPrime(); lastMove = "L'"; } else { cube->l(); lastMove = "L"; } }
-                    if (IsKeyPressed(KEY_R)) { if (isPrime) { cube->rPrime(); lastMove = "R'"; } else { cube->r(); lastMove = "R"; } }
+                    GenericRubiksCube::MOVE manualMove = static_cast<GenericRubiksCube::MOVE>(-1);
+                    
+                    if (IsKeyPressed(KEY_F)) manualMove = isPrime ? GenericRubiksCube::MOVE::FPRIME : GenericRubiksCube::MOVE::F;
+                    else if (IsKeyPressed(KEY_B)) manualMove = isPrime ? GenericRubiksCube::MOVE::BPRIME : GenericRubiksCube::MOVE::B;
+                    else if (IsKeyPressed(KEY_U)) manualMove = isPrime ? GenericRubiksCube::MOVE::UPRIME : GenericRubiksCube::MOVE::U;
+                    else if (IsKeyPressed(KEY_D)) manualMove = isPrime ? GenericRubiksCube::MOVE::DPRIME : GenericRubiksCube::MOVE::D;
+                    else if (IsKeyPressed(KEY_L)) manualMove = isPrime ? GenericRubiksCube::MOVE::LPRIME : GenericRubiksCube::MOVE::L;
+                    else if (IsKeyPressed(KEY_R)) manualMove = isPrime ? GenericRubiksCube::MOVE::RPRIME : GenericRubiksCube::MOVE::R;
+
+                    if (static_cast<int>(manualMove) != -1) {
+                        solutionMoves.clear();
+                        solutionMoves.push_back(manualMove);
+                        currentMoveIndex = 0;
+                        animProgress = 0.0f;
+                        currentAnimMove = manualMove;
+                        currentState = GUIState::SOLVING;
+                        fullSolutionText = ""; // Clear any previous solution text
+                    }
                 }
             }
         } else if (currentState == GUIState::SOLVING) {
