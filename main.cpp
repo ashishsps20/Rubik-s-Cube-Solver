@@ -16,7 +16,7 @@ int main() {
     cout << "=======================================" << endl;
     cout << "  Rubik's Cube Solver Main Program" << endl;
     cout << "=======================================" << endl;
-    cout << "          Created by Saket2701         " << endl;
+    cout << "          Created by Ashish Gautam         " << endl;
     cout << "=======================================" << endl;
 
     cout << "Choose an option:" << endl;
@@ -380,10 +380,10 @@ int main() {
         RubiksGUI gui(&cube);
         
         // Set the Auto-Solve callback
-        gui.setSolverFunc([&cube]() {
+        gui.setSolverFunc([&cube](std::atomic<bool>* cancel_flag) {
             string fileName = "Databases/cornerDepth5V1.txt";
             IDAstarSolver<RubiksCubeBitboard, HashBitboard> idaStarSolver(cube, fileName);
-            return idaStarSolver.solve();
+            return idaStarSolver.solve(cancel_flag);
         });
         
         gui.init();

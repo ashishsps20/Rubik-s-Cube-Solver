@@ -11,6 +11,7 @@ RubiksGUI::RubiksGUI(GenericRubiksCube* cube) : cube(cube) {
     currentState = GUIState::NORMAL;
     animProgress = 0.0f;
     currentMoveIndex = 0;
+    cancel_solve = false;
     paintColor = static_cast<GenericRubiksCube::COLOR>(0); // 0 is WHITE
     solverFunc = nullptr;
     fullSolutionText = "";
@@ -282,7 +283,8 @@ void RubiksGUI::run() {
                     if (isValidCube()) {
                         isCalculating = true;
                         errorMessage = "";
-                        solveFuture = std::async(std::launch::async, solverFunc);
+                        cancel_solve = false;
+                        solveFuture = std::async(std::launch::async, solverFunc, &cancel_solve);
                         currentState = GUIState::NORMAL;
                     } else {
                         errorMessage = "Invalid Cube! Cannot solve. Please fix colors.";
@@ -392,5 +394,6 @@ void RubiksGUI::run() {
 
         EndDrawing();
     }
+    cancel_solve = true; // Signal the solver thread to abort if window is closed
     CloseWindow();
 }

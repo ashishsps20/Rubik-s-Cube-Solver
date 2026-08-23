@@ -45,7 +45,7 @@ private:
 
 // returns {solved cube, bound}: if the cube was solved
 // returns {rubiksCube, next_bound}, if the cube was not solved
-    pair<T, int> IDAstar(int bound, chrono::steady_clock::time_point start_time) {
+    pair<T, int> IDAstar(int bound, chrono::steady_clock::time_point start_time, std::atomic<bool>* cancel_flag = nullptr) {
 //        priority_queue contains pair(Node, move done to reach that)
         priority_queue<pair<Node, int>, vector<pair<Node, int>>, compareCube> pq;
         Node start = Node(rubiksCube, 0, cornerDB.getNumMoves(rubiksCube));
@@ -55,8 +55,11 @@ private:
         while (!pq.empty()) {
             nodes_visited++;
             if (nodes_visited % 10000 == 0) {
+                if (cancel_flag && cancel_flag->load()) {
+                    return make_pair(rubiksCube, -1); // Canceled by user
+                }
                 auto curr_time = chrono::steady_clock::now();
-                if (chrono::duration_cast<chrono::seconds>(curr_time - start_time).count() > 5) {
+                if (chrono::duration_cast<chrono::seconds>(curr_time - start_time).count() > 30) {
                     return make_pair(rubiksCube, -1); // -1 signifies timeout
                 }
             }
@@ -97,16 +100,16 @@ public:
         cornerDB.fromFile(fileName);
     }
 
-    vector<GenericRubiksCube::MOVE> solve() {
+    vector<GenericRubiksCube::MOVE> solve(std::atomic<bool>* cancel_flag = nullptr) {
         int bound = 1;
         auto start_time = chrono::steady_clock::now();
-        auto p = IDAstar(bound, start_time);
+        auto p = IDAstar(bound, start_time, cancel_flag);
         while (p.second != bound) {
             if (p.second == -1) return vector<GenericRubiksCube::MOVE>(); // Timeout
 
             resetStructure();
             bound = p.second;
-            p = IDAstar(bound, start_time);
+            p = IDAstar(bound, start_time, cancel_flag);
         }
         T solved_cube = p.first;
         if (!solved_cube.isSolved()) return vector<GenericRubiksCube::MOVE>(); // Failsafe

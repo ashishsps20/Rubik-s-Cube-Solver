@@ -7,6 +7,7 @@
 #include <vector>
 #include <functional>
 #include <future>
+#include <atomic>
 
 class RubiksGUI {
 private:
@@ -33,7 +34,8 @@ private:
     std::string errorMessage;
 
     // Auto-solving state
-    std::function<std::vector<GenericRubiksCube::MOVE>()> solverFunc;
+    std::atomic<bool> cancel_solve;
+    std::function<std::vector<GenericRubiksCube::MOVE>(std::atomic<bool>*)> solverFunc;
     std::future<std::vector<GenericRubiksCube::MOVE>> solveFuture;
     bool isCalculating;
     std::vector<GenericRubiksCube::MOVE> solutionMoves;
@@ -60,7 +62,7 @@ private:
 
 public:
     RubiksGUI(GenericRubiksCube* cube);
-    void setSolverFunc(std::function<std::vector<GenericRubiksCube::MOVE>()> func) { solverFunc = func; }
+    void setSolverFunc(std::function<std::vector<GenericRubiksCube::MOVE>(std::atomic<bool>*)> func) { solverFunc = func; }
     void init();
     void run();
 };
