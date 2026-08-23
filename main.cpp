@@ -313,7 +313,7 @@ int main() {
                 cout << "\n";
                 cube.print();
 
-                string fileName = "Databases/cornerDepth5V1.txt";
+                string fileName = "Databases/cornerDepth11.txt";
                 IDAstarSolver<RubiksCube1dArray, Hash1d> idaStarSolver(cube, fileName);
                 auto moves = idaStarSolver.solve();
                 idaStarSolver.rubiksCube.print();
@@ -335,7 +335,7 @@ int main() {
                 cout << "\n";
                 cube.print();
 
-                string fileName = "Databases/cornerDepth5V1.txt";
+                string fileName = "Databases/cornerDepth11.txt";
                 IDAstarSolver<RubiksCube3dArray, Hash3d> idaStarSolver(cube, fileName);
                 auto moves = idaStarSolver.solve();
                 idaStarSolver.rubiksCube.print();
@@ -357,7 +357,7 @@ int main() {
                 cout << "\n";
                 cube.print();
 
-                string fileName = "Databases/cornerDepth5V1.txt";
+                string fileName = "Databases/cornerDepth11.txt";
                 IDAstarSolver<RubiksCubeBitboard, HashBitboard> idaStarSolver(cube, fileName);
                 auto moves = idaStarSolver.solve();
                 idaStarSolver.rubiksCube.print();
@@ -381,7 +381,7 @@ int main() {
         
         // Set the Auto-Solve callback
         gui.setSolverFunc([&cube](std::atomic<bool>* cancel_flag) {
-            string fileName = "Databases/cornerDepth5V1.txt";
+            string fileName = "Databases/cornerDepth11.txt";
             IDAstarSolver<RubiksCubeBitboard, HashBitboard> idaStarSolver(cube, fileName);
             return idaStarSolver.solve(cancel_flag);
         });
