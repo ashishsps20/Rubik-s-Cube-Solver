@@ -8,10 +8,11 @@ A highly optimized C++ Rubik's Cube engine capable of finding optimal solutions 
 *[🔗 Link to this Demo section](https://github.com/ashishsps20/Rubik-s-Cube-Solver#demo-section)*
 
 ### Terminal Solver
-<video src="demo/terminal_solver.mp4" controls="controls" muted="muted" width="100%"></video>
+https://github.com/user-attachments/assets/f9bdfed9-58c4-4945-94e9-088a76f3f433
 
 ### GUI Solver
-<video src="demo/gui_solver.mp4" controls="controls" muted="muted" width="100%"></video>
+https://github.com/user-attachments/assets/9bd21a89-cf49-4625-b1f2-ddda475e3515
+
 
 ## ✨ Features
 
