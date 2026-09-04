@@ -5,7 +5,6 @@ A highly optimized C++ Rubik's Cube engine capable of finding optimal solutions 
 <a id="demo-section"></a>
 ## 🎥 Demo
 
-*[🔗 Link to this Demo section](https://github.com/ashishsps20/Rubik-s-Cube-Solver#demo-section)*
 
 ### Terminal Solver
 https://github.com/user-attachments/assets/f9bdfed9-58c4-4945-94e9-088a76f3f433
