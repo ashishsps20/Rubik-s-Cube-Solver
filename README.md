@@ -16,10 +16,12 @@ https://github.com/user-attachments/assets/9bd21a89-cf49-4625-b1f2-ddda475e3515
 ### Following the Solver steps in the video
 
 #### Shuffled Cube [B2 D' D2 L'  F'] -
-![Screenshot 2023-11-06 104013](https://github.com/Saket2701/Rubiks_Solver/assets/101319476/1ce3b04a-ac32-47f5-82ff-deba81ebee0f)
+<img width="400" height="293" alt="280601673-1ce3b04a-ac32-47f5-82ff-deba81ebee0f" src="https://github.com/user-attachments/assets/e8666ff2-8a0c-4e66-812a-aa7d9aac80c9" />
+
 
 #### Solution [F L D' B2] - 
-![Screenshot_2023-11-06_111227-removebg](https://github.com/Saket2701/Rubiks_Solver/assets/101319476/74541bc6-19e8-4c94-b87e-758889f7415a)
+<img width="1265" height="572" alt="280606338-74541bc6-19e8-4c94-b87e-758889f7415a" src="https://github.com/user-attachments/assets/9b8c044e-6f0b-45e5-88d7-72c065009f26" />
+
 
 
 ## ✨ Features
