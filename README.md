@@ -13,6 +13,14 @@ https://github.com/user-attachments/assets/f9bdfed9-58c4-4945-94e9-088a76f3f433
 ### GUI Solver
 https://github.com/user-attachments/assets/9bd21a89-cf49-4625-b1f2-ddda475e3515
 
+### Following the Solver steps in the video
+
+#### Shuffled Cube [B2 D' D2 L'  F'] -
+![Screenshot 2023-11-06 104013](https://github.com/Saket2701/Rubiks_Solver/assets/101319476/1ce3b04a-ac32-47f5-82ff-deba81ebee0f)
+
+#### Solution [F L D' B2] - 
+![Screenshot_2023-11-06_111227-removebg](https://github.com/Saket2701/Rubiks_Solver/assets/101319476/74541bc6-19e8-4c94-b87e-758889f7415a)
+
 
 ## ✨ Features
 
