@@ -2,6 +2,23 @@
 
 A highly optimized C++ Rubik's Cube engine capable of finding optimal solutions using Iterative Deepening A* (IDA*) guided by pre-computed Pattern Databases. This project features a custom multi-threaded 3D graphical visualizer built with Raylib, complete with interactive cube painting, physical structure validation, and smooth 3D slice animations.
 
+<a id="demo-section"></a>
+## 🎥 Demo
+
+*[🔗 Link to this Demo section](https://github.com/ashishsps20/Rubik-s-Cube-Solver#demo-section)*
+
+### Terminal Solver
+<!-- Replace the src below with your actual video filename -->
+<video src="demo/terminal_solver.mp4" controls="controls" style="max-width: 100%;">
+  Your browser does not support the video tag.
+</video>
+
+### GUI Solver
+<!-- Replace the src below with your actual video filename -->
+<video src="demo/gui_solver.mp4" controls="controls" style="max-width: 100%;">
+  Your browser does not support the video tag.
+</video>
+
 ## ✨ Features
 
 - **Extreme Performance**: The Rubik's cube state is mathematically compressed into a 64-bit integer Bitboard, reducing face rotations to single-cycle bitwise operations.
